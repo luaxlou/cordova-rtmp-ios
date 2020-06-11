@@ -2,13 +2,10 @@
 Library based [https://github.com/shogo4405/HaishinKit.swift](https://github.com/shogo4405/HaishinKit.swift)
 
 # Install
-Latest stable version from npm:
-```sh
-$ cordova plugin add cordova-rtmp-ios
 ```
 Bleeding edge version from Github:
 ```sh
-$ cordova plugin add https://github.com/disono/cordova-rtmp-ios
+$ cordova plugin add https://github.com/luaxlou/cordova-rtmp-ios
 ```
 
 # Using the plugin
