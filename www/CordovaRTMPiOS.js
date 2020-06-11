@@ -1,7 +1,11 @@
-var exec = require('cordova/exec');
-var videoStreamer = {};
+"use strict";
+function VideoStreamer() {
+}
 
-videoStreamer.streamRTMP = function(uri, success, failure) {
+
+var exec = require('cordova/exec');
+ 
+VideoStreamer.prototype.streamRTMP = function(uri, success, failure) {
     // fire
     exec(
         success,
@@ -12,7 +16,7 @@ videoStreamer.streamRTMP = function(uri, success, failure) {
     );
 };
 
-videoStreamer.streamRTMPAuth = function(uri, username, password, success, failure) {
+VideoStreamer.prototype.streamRTMPAuth = function(uri, username, password, success, failure) {
     // fire
     exec(
         success,
@@ -23,7 +27,7 @@ videoStreamer.streamRTMPAuth = function(uri, username, password, success, failur
     );
 };
 
-videoStreamer.streamStop = function(success, failure) {
+VideoStreamer.prototype.streamStop = function(success, failure) {
     // fire
     exec(
         success,
@@ -34,8 +38,17 @@ videoStreamer.streamStop = function(success, failure) {
     );
 };
 
-videoStreamer.echo = function(arg0, success, error) {
+VideoStreamer.prototype.echo = function(arg0, success, error) {
     exec(success, error, "CordovaRTMPiOS", "echo", [arg0]);
 };
 
-module.exports = videoStreamer;
+
+VideoStreamer.install = function () {
+	if (!window.plugins) {
+		window.plugins = {};
+	}
+	window.plugins.videoStreamer = new VideoStreamer();
+	return window.plugins.videoStreamer;
+};
+
+cordova.addConstructor(VideoStreamer.install);
