@@ -7,41 +7,15 @@
 
 @objc(CordovaRTMPiOS) class CordovaRTMPiOS : CDVPlugin {
   func echo(_ command: CDVInvokedUrlCommand) {
+    
+    let rtmpConnection = RTMPConnection()
+    let rtmpStream = RTMPStream(connection: rtmpConnection)
+    
     var pluginResult = CDVPluginResult(
       status: CDVCommandStatus_ERROR
     )
 
-    let msg = command.arguments[0] as? String ?? ""
-
-    if msg.characters.count > 0 {
-      /* UIAlertController is iOS 8 or newer only. */
-      let toastController: UIAlertController = 
-        UIAlertController(
-          title: "", 
-          message: msg, 
-          preferredStyle: .alert
-        )
-
-      self.viewController?.present(
-        toastController, 
-        animated: true, 
-        completion: nil
-      )
-
-        let mainQueue = DispatchQueue.main
-        let deadline = DispatchTime.now() + .seconds(10)
-        mainQueue.asyncAfter(deadline: deadline) {
-            toastController.dismiss(
-                animated: true,
-                completion: nil
-            )
-        }
-
-      pluginResult = CDVPluginResult(
-        status: CDVCommandStatus_OK,
-        messageAs: msg
-      )
-    }
+    
 
     self.commandDelegate!.send(
       pluginResult, 
